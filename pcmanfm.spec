@@ -1,16 +1,17 @@
 Summary:	Lightweight GTK+ file manager
 Name:		pcmanfm
-Version:	1.0.1
-Release:	2
+Version:	1.1.0
+Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://downloads.sourceforge.net/pcmanfm/%{name}-%{version}.tar.gz
-# Source0-md5:	f373ee514bae37b53b152d02ac465058
+# Source0-md5:	af0cff78690e658f3c06ceabf27bc71a
+Patch0:		%{name}-am.patch
 URL:		http://pcmanfm.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gtk+-devel
-BuildRequires:	libfm-devel
+BuildRequires:	libfm-devel >= 1.1.0
 BuildRequires:	pkg-config
 Requires(post,postun):	desktop-file-utils
 Requires:	libfm-runtime
@@ -25,6 +26,7 @@ browsing and user-friendly interface.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__libtoolize}
@@ -32,7 +34,7 @@ browsing and user-friendly interface.
 %{__autoconf}
 %{__automake}
 %configure \
-	--enable-debug
+	--with-gtk=2
 %{__make}
 
 %install
@@ -41,7 +43,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/{no,sv_SE,tt_RU,ur_PK}
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/tt_RU
 
 %find_lang %{name}
 
@@ -49,10 +51,10 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/{no,sv_SE,tt_RU,ur_PK}
 rm -rf $RPM_BUILD_ROOT
 
 %post
-%update_desktop_database_post
+%update_desktop_database
 
 %postun
-%update_desktop_database_postun
+%update_desktop_database
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
