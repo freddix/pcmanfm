@@ -1,17 +1,16 @@
 Summary:	Lightweight GTK+ file manager
 Name:		pcmanfm
-Version:	1.1.0
+Version:	1.1.2
 Release:	1
 License:	GPL v2
 Group:		X11/Applications
 Source0:	http://downloads.sourceforge.net/pcmanfm/%{name}-%{version}.tar.gz
-# Source0-md5:	af0cff78690e658f3c06ceabf27bc71a
-Patch0:		%{name}-am.patch
+# Source0-md5:	41104699e653ff2b0a9a9e80a257d6a2
 URL:		http://pcmanfm.sourceforge.net/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gtk+-devel
-BuildRequires:	libfm-devel >= 1.1.0
+BuildRequires:	libfm-devel >= 1.1.2
 BuildRequires:	pkg-config
 Requires(post,postun):	desktop-file-utils
 Requires:	libfm-runtime
@@ -26,7 +25,6 @@ browsing and user-friendly interface.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %{__libtoolize}
